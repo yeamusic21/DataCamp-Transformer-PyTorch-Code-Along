@@ -2,6 +2,7 @@ from transformer_tutorial import MultiHeadAttention
 import torch
 import numpy as np
 import torch.nn as nn
+import math
 
 ###------------------
 ### Review Initialization
@@ -70,3 +71,48 @@ res_split_heads = W_q_Q.view(batch_size, seq_length, num_heads, d_k).transpose(1
 
 print(res_split_heads)
 print(res_split_heads.size())
+
+###
+# scaled_dot_product_attention
+###
+print("=============================================")
+
+q = torch.tensor(np.random.rand(3, 10, 10).tolist())
+k = torch.tensor(np.random.rand(3, 10, 10).tolist())
+v = torch.tensor(np.random.rand(3, 10, 10).tolist())
+
+W_q = nn.Linear(d_model, d_model)
+W_k = nn.Linear(d_model, d_model)
+W_v = nn.Linear(d_model, d_model)
+
+W_q_Q = W_q(tensor_from_list)
+W_k_K = W_k(tensor_from_list)
+W_v_V = W_v(tensor_from_list)
+
+batch_size, seq_length, d_model = W_q_Q.size()
+Q = W_q_Q.view(batch_size, seq_length, num_heads, d_k).transpose(1, 2)
+batch_size, seq_length, d_model = W_k_K.size()
+K = W_k_K.view(batch_size, seq_length, num_heads, d_k).transpose(1, 2)
+batch_size, seq_length, d_model = W_v_V.size()
+V = W_v_V.view(batch_size, seq_length, num_heads, d_k).transpose(1, 2)
+
+# attn_scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
+
+print("K size:", K.size())
+print("Q size:", Q.size())
+
+step1 = K.transpose(-2, -1)
+print("step1 size: ", step1.size())
+print("step1: ", step1)
+
+step2 = torch.matmul(Q, step1)
+print("step2 size: ", step2.size())
+print("step2: ", step2)
+
+attn_scores = step2 / math.sqrt(d_k)
+print("attn_scores size: ", attn_scores.size())
+print("attn_scores: ", attn_scores)
+
+
+print("=============================================")
+# print("Result of scaled_dot_product_attention:")
