@@ -113,6 +113,18 @@ attn_scores = step2 / math.sqrt(d_k)
 print("attn_scores size: ", attn_scores.size())
 print("attn_scores: ", attn_scores)
 
+print("")
+print("Skipping mask because looks like it's just set to None at this point in the code.")
+print("")
+
+attn_probs = torch.softmax(attn_scores, dim=-1)
+print("attn_probs size: ", attn_probs.size())
+print("attn_probs: ", attn_probs)
 
 print("=============================================")
-# print("Result of scaled_dot_product_attention:")
+print("Result of scaled_dot_product_attention:")
+
+output = torch.matmul(attn_probs, V)
+print("output size: ", output.size())
+print("output: ", output)
+
