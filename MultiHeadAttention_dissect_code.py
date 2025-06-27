@@ -1,3 +1,5 @@
+# https://www.datacamp.com/tutorial/building-a-transformer-with-py-torch
+
 from transformer_tutorial import MultiHeadAttention
 import torch
 import numpy as np

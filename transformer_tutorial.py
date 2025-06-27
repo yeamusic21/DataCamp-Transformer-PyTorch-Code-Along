@@ -1,3 +1,5 @@
+# https://www.datacamp.com/tutorial/building-a-transformer-with-py-torch
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -59,5 +61,15 @@ class MultiHeadAttention(nn.Module):
         # Combine heads and apply output transformation
         output = self.W_o(self.combine_heads(attn_output))
         return output
+    
+class PositionWiseFeedForward(nn.Module):
+    def __init__(self, d_model, d_ff):
+        super(PositionWiseFeedForward, self).__init__()
+        self.fc1 = nn.Linear(d_model, d_ff)
+        self.fc2 = nn.Linear(d_ff, d_model)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+        return self.fc2(self.relu(self.fc1(x)))
 
 
