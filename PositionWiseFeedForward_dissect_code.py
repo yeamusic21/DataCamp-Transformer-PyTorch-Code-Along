@@ -36,3 +36,13 @@ step1 = fc1(x) # 10x10 * 10x20 gives 10x20
 print("Step1 results:")
 print(step1)
 print(step1.size())
+
+print("=======================================")
+print("Skipping Step2 which is just RELU")
+print("=======================================")
+
+step3 = fc2(step1) # 10x20 * 20x10 gives 10x10
+
+print("Step3 results:")
+print(step3)
+print(step3.size())
