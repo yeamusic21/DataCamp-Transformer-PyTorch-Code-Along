@@ -31,3 +31,46 @@ max_seq_length = 20 #
 
 testmod = PositionWiseFeedForward(d_model, max_seq_length)
 print(testmod)
+
+###------------------
+### Step Through Code
+###------------------
+
+pe = torch.zeros(max_seq_length, d_model)
+print("=========================================")
+print("Result of torch.zeros(max_seq_length, d_model):")
+print(pe)
+print(pe.size())
+# Result is just a matrix of 0's of size max_seq_length x d_model
+
+position_1 = torch.arange(0, max_seq_length, dtype=torch.float)
+position = position_1.unsqueeze(1)
+print("=========================================")
+print("Result of torch.arange(0, max_seq_length, dtype=torch.float):")
+print(position_1)
+print(position_1.size())
+print("Result of unsqueeze(1):")
+print(position)
+print(position.size())
+# Example output...
+# tensor([[ 0.],
+#         [ 1.],
+#         [ 2.],
+#         [ 3.],
+#         [ 4.],
+#         [ 5.],
+#         [ 6.],
+#         [ 7.],
+#         [ 8.],
+#         [ 9.],
+#         [10.],
+#         [11.],
+#         [12.],
+#         [13.],
+#         [14.],
+#         [15.],
+#         [16.],
+#         [17.],
+#         [18.],
+#         [19.]])
+# torch.Size([20, 1])
