@@ -74,3 +74,25 @@ print(position.size())
 #         [18.],
 #         [19.]])
 # torch.Size([20, 1])
+
+div_term = torch.exp(torch.arange(0, d_model, 2).float() * -(math.log(10000.0) / d_model))
+print("=========================================")
+print("Result of torch.exp(torch.arange(0, d_model, 2).float() * -(math.log(10000.0) / d_model)):")
+print(div_term)
+print(div_term.size())
+# "div_term: A term used to scale the position indices in a specific way."
+# Example output...
+# tensor([1.0000e+00, 1.5849e-01, 2.5119e-02, 3.9811e-03, 6.3096e-04])
+# torch.Size([5])
+print("math.log(10000.0): ", math.log(10000.0))
+print("-(math.log(10000.0) / d_model): ", -(math.log(10000.0) / d_model))
+print("torch.arange(0, d_model, 2).float(): ", torch.arange(0, d_model, 2).float())
+
+print("==========================================================")
+print("position * div_term: ", position * div_term)
+print("torch.sin(position * div_term): ", torch.sin(position * div_term))
+print("torch.cos(position * div_term): ", torch.cos(position * div_term))
+# "The sine function is applied to the even indices and the cosine function to the odd indices of pe."
+pe[:, 0::2] = torch.sin(position * div_term)
+pe[:, 1::2] = torch.cos(position * div_term)
+print("pe: ", pe)
