@@ -198,3 +198,15 @@ for epoch in range(100):
     loss.backward()
     optimizer.step()
     print(f"Epoch: {epoch+1}, Loss: {loss.item()}")
+
+transformer.eval()
+
+# Generate random sample validation data
+val_src_data = torch.randint(1, src_vocab_size, (64, max_seq_length))  # (batch_size, seq_length)
+val_tgt_data = torch.randint(1, tgt_vocab_size, (64, max_seq_length))  # (batch_size, seq_length)
+
+with torch.no_grad():
+
+    val_output = transformer(val_src_data, val_tgt_data[:, :-1])
+    val_loss = criterion(val_output.contiguous().view(-1, tgt_vocab_size), val_tgt_data[:, 1:].contiguous().view(-1))
+    print(f"Validation Loss: {val_loss.item()}")
